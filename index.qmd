@@ -1,0 +1,30 @@
+---
+title: "Class-06-30-2025"
+execute:
+  echo: false
+  message: false
+---
+
+```{r}
+#| message: false
+#| cache: false
+
+suppressMessages(library(tidyverse))
+library(gapminder)
+library(scales)
+
+# Prepare the data
+data <- gapminder %>%
+  dplyr::filter(year == 2007) %>%
+  dplyr::select(country, continent, gdpPercap)
+
+# Create a boxplot of GDP per capita by continent
+ggplot(data, aes(x = continent, y = gdpPercap, fill = continent)) +
+  geom_boxplot() +
+  scale_y_log10(labels = scales::dollar_format()) +
+  labs(title = "GDP per Capita by Continent (2007)",
+       x = "Continent",
+       y = "GDP per Capita (USD, log scale)") +
+  theme_minimal()
+
+``` 
